@@ -1,0 +1,30 @@
+import ForgotPasswordForm from "@/app/components/auth/ForgotPasswordForm";
+import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Cashtrackr - Olvide mi Password",
+  description: "Cashtrackr - Olvide mi Password",
+  keywords: "Nextjs, Tailwindcss,",
+};
+export default function ForgotPasswordPage() {
+  return (
+    <>
+      <h1 className="font-black text-6xl text-purple-950">
+        ¿Olvidaste tu Contraseña?
+      </h1>
+      <p className="text-3xl font-bold">
+        aqui puedes <span className="text-amber-500">reestablecerla</span>
+      </p>
+      <ForgotPasswordForm />+
+      <nav className="mt-10 flex flex-col space-y-4">
+        <Link href="/auth/login" className="text-center text-gray-500">
+          ¿Ya tienes Cuenta? Iniciar Sesion
+        </Link>
+        <Link href="/auth/register" className="text-center text-gray-500">
+          ¿No tienes Cuenta? Crear Cuenta
+        </Link>
+      </nav>
+    </>
+  );
+}
