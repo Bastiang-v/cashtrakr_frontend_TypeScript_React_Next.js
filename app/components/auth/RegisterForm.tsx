@@ -1,7 +1,31 @@
 "use client";
+
+import { register } from "@/actions/create-account-action";
+import { useFormState } from "react-dom";
+import { ErrorMessage } from "../ui/ErrorMessage";
+import { SuccessMessage } from "../ui/SuccessMessage";
+import { useEffect, useRef } from "react";
+
 export const RegisterForm = () => {
+  const ref = useRef<HTMLFormElement>(null);
+  const [state, dispactch] = useFormState(register, {
+    errors: [],
+    success: "",
+  });
+
+  useEffect(() => {
+    if (state.success) {
+      ref.current?.reset();
+    }
+  }, [state]);
   return (
-    <form className="mt-14 space-y-5" noValidate>
+    <form ref={ref} className="mt-14 space-y-5" noValidate action={dispactch}>
+      {state.errors.map((error: string) => (
+        <ErrorMessage key={error}>{error}</ErrorMessage>
+      ))}
+      {state.success && (
+        <SuccessMessage key={state.success}>{state.success}</SuccessMessage>
+      )}
       <div className="flex flex-col gap-2">
         <label className="font-bold text-2xl" htmlFor="email">
           Email
@@ -10,7 +34,7 @@ export const RegisterForm = () => {
           id="email"
           type="email"
           placeholder="Email de Registro"
-          className="w-full border border-gray-300 p-3 rounded-l"
+          className="w-full border border-gray-300 p-3 rounded-l text-black"
           name="email"
         />
       </div>
@@ -20,7 +44,7 @@ export const RegisterForm = () => {
         <input
           type="name"
           placeholder="Nombre de Registro"
-          className="w-full border border-gray-300 p-3 rounded-lg"
+          className="w-full border border-gray-300 p-3 rounded-lg text-black"
           name="name"
         />
       </div>
@@ -30,7 +54,7 @@ export const RegisterForm = () => {
         <input
           type="password"
           placeholder="Password de Registro"
-          className="w-full border border-gray-300 p-3 rounded-lg"
+          className="w-full border border-gray-300 p-3 rounded-lg text-black"
           name="password"
         />
       </div>
@@ -41,7 +65,7 @@ export const RegisterForm = () => {
           id="password_confirmation"
           type="password"
           placeholder="Repite Password de Registro"
-          className="w-full border border-gray-300 p-3 rounded-lg"
+          className="w-full border border-gray-300 p-3 rounded-lg text-black"
           name="password_confirmation"
         />
       </div>
