@@ -50,6 +50,9 @@ export const DraftBudgetSchema = z.object({
     .number({ message: "Cantidad no válida" })
     .min(1, { message: "Cantidad no válida" }),
 });
+export const PasswordValidationSchema = z
+  .string()
+  .min(1, { message: "Password no valido" });
 export const SuccessSchema = z.string();
 export const ErrorsResponseSchema = z.object({
   error: z.string(),

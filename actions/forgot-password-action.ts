@@ -16,7 +16,6 @@ export async function forgotPassword(
   prevState: ActionStateType,
   formData: FormData,
 ) {
-  console.log("desde forgotPassword ");
   const forgotPassword = ForgotPasswordSchema.safeParse({
     email: formData.get("email"),
   });
