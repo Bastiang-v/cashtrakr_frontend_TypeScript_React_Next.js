@@ -51,7 +51,7 @@ export default function ConfirmPasswordForm() {
       </p>
 
       <p className="text-gray-600 text-sm">
-        (Un presupuesto eliminado y sus gastos no se pueden recuperar)
+        (Un presupuesto eliminado y sus gastos no se pueden recuperar!!)
       </p>
 
       {state.errors.map((error) => (
