@@ -24,7 +24,7 @@ export default function AddExpenseForm({
       toast.success(state.success);
       closeModal();
     }
-  }, [state]);
+  }, [closeModal, state]);
 
   return (
     <>

@@ -1,16 +1,18 @@
-import { resetPassword } from "@/actions/reset-password-action";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "react-toastify";
+import { resetPassword } from "@/actions/reset-password-action";
 
 export default function ResetPasswordForm({ token }: { token: string }) {
   const router = useRouter();
+
   const resetPasswordWithToken = resetPassword.bind(null, token);
   const [state, dispatch] = useFormState(resetPasswordWithToken, {
     errors: [],
     success: "",
   });
+
   useEffect(() => {
     if (state.errors) {
       state.errors.forEach((error) => {
@@ -18,10 +20,17 @@ export default function ResetPasswordForm({ token }: { token: string }) {
       });
     }
     if (state.success) {
-      toast.success(state.success);
-      router.push("/auth/login");
+      toast.success(state.success, {
+        onClose: () => {
+          router.push("/auth/login");
+        },
+        onClick: () => {
+          router.push("/auth/login");
+        },
+      });
     }
-  }, [state]);
+  }, [state, router]);
+
   return (
     <form className=" mt-14 space-y-5" noValidate action={dispatch}>
       <div className="flex flex-col gap-5">
@@ -30,7 +39,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
         <input
           type="password"
           placeholder="Password de Registro"
-          className="w-full border border-gray-300 p-3 rounded-lg text-black"
+          className="w-full border border-gray-300 p-3 rounded-lg"
           name="password"
         />
       </div>
@@ -42,7 +51,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
           id="password_confirmation"
           type="password"
           placeholder="Repite Password de Registro"
-          className="w-full border border-gray-300 p-3 rounded-lg text-black"
+          className="w-full border border-gray-300 p-3 rounded-lg"
           name="password_confirmation"
         />
       </div>

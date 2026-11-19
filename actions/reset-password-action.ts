@@ -1,16 +1,16 @@
 "use server";
 
 import {
-  ErrorsResponseSchema,
+  ErrorResponseSchema,
   ResetPasswordSchema,
   SuccessSchema,
 } from "@/src/schemas";
-import { success } from "zod";
 
 type ActionStateType = {
   errors: string[];
   success: string;
 };
+
 export async function resetPassword(
   token: string,
   prevState: ActionStateType,
@@ -20,6 +20,7 @@ export async function resetPassword(
     password: formData.get("password"),
     password_confirmation: formData.get("password_confirmation"),
   };
+
   const resetPassword = ResetPasswordSchema.safeParse(resetPasswordInput);
   if (!resetPassword.success) {
     return {
@@ -27,6 +28,7 @@ export async function resetPassword(
       success: "",
     };
   }
+
   const url = `${process.env.API_URL}/auth/reset-password/${token}`;
   const req = await fetch(url, {
     method: "POST",
@@ -37,17 +39,19 @@ export async function resetPassword(
       password: resetPasswordInput.password,
     }),
   });
+
   const json = await req.json();
   if (!req.ok) {
-    const { error } = ErrorsResponseSchema.parse(json);
+    const { error } = ErrorResponseSchema.parse(json);
     return {
       errors: [error],
       success: "",
     };
   }
+
   const success = SuccessSchema.parse(json);
   return {
-    error: [],
+    errors: [],
     success,
   };
 }

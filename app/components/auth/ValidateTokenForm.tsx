@@ -23,7 +23,7 @@ export default function ValidateTokenForm({
     if (isComplete) {
       dispatch();
     }
-  }, [isComplete]);
+  }, [dispatch, isComplete]);
   useEffect(() => {
     if (state.errors) {
       state.errors.forEach((error) => {
@@ -34,7 +34,7 @@ export default function ValidateTokenForm({
       toast.success(state.success);
       setIsValidToken(true);
     }
-  }, [state]);
+  }, [setIsValidToken, state]);
   const handleChange = (token: string) => {
     setIsComplete(false);
     setToken(token);

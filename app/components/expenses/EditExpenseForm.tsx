@@ -32,14 +32,14 @@ export default function EditExpenseForm({
     fetch(url)
       .then((res) => res.json())
       .then((data) => setExpense(data));
-  }, []);
+  }, [budgetId, expenseId]);
 
   useEffect(() => {
     if (state.success) {
       toast.success(state.success);
       closeModal();
     }
-  }, [state]);
+  }, [closeModal, state]);
 
   return (
     <>

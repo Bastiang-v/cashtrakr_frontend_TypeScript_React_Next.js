@@ -10,24 +10,23 @@ export default function ConfirmPasswordForm() {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const closeModal = () => {
+    const hideModal = new URLSearchParams(searchParams.toString());
+    hideModal.delete("deleteBudgetId");
+    router.replace(`${pathname}?${hideModal}`);
+  };
   const budgetId = +searchParams.get("deleteBudgetId")!;
   const deleteBudgetWithPassword = deleteBudget.bind(null, budgetId);
   const [state, dispatch] = useFormState(deleteBudgetWithPassword, {
     errors: [],
     success: "",
   });
-
   useEffect(() => {
     if (state.success) {
       toast.success(state.success);
       closeModal();
     }
-  }, [state]);
-  const closeModal = () => {
-    const hideModal = new URLSearchParams(searchParams.toString());
-    hideModal.delete("deleteBudgetId");
-    router.replace(`${pathname}?${hideModal}`);
-  };
+  }, [closeModal, state]);
 
   return (
     <>

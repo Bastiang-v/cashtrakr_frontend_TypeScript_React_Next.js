@@ -19,7 +19,7 @@ export default function CreateBudgetForm() {
       toast.success(state.success);
       router.push("/admin");
     }
-  }, [state]);
+  }, [router, state]);
   return (
     <form className="mt-10 space-y-3" noValidate action={dispatch}>
       {state.errors.map((error) => (

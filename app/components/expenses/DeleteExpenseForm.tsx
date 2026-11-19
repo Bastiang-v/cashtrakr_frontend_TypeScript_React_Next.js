@@ -29,13 +29,13 @@ export default function DeleteExpenseForm({ closeModal }: DeleteExpenseForm) {
       toast.success(state.success);
       closeModal();
     }
-  }, [state]);
+  }, [closeModal, state]);
 
   useEffect(() => {
     if (!Number.isInteger(+budgetId) || !Number.isInteger(+expenseId)) {
       closeModal();
     }
-  }, []);
+  }, [budgetId, closeModal, expenseId]);
 
   return (
     <>

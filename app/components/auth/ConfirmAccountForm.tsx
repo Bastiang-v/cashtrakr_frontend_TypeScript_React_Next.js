@@ -19,7 +19,7 @@ export default function ConfirmAccountForm() {
     if (isComplete) {
       dispatch();
     }
-  }, [isComplete]);
+  }, [dispatch, isComplete]);
   useEffect(() => {
     if (state.errors) {
       state.errors.forEach((error) => {
@@ -30,7 +30,7 @@ export default function ConfirmAccountForm() {
       toast.success(state.success);
       router.push("/auth/login");
     }
-  }, [state]);
+  }, [router, state]);
   const handleChangle = (token: string) => {
     setIsComplete(false);
     setToken(token);
