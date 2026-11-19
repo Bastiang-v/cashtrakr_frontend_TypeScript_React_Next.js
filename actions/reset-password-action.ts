@@ -1,7 +1,7 @@
 "use server";
 
 import {
-  ErrorResponseSchema,
+  ErrorsResponseSchema,
   ResetPasswordSchema,
   SuccessSchema,
 } from "@/src/schemas";
@@ -42,7 +42,7 @@ export async function resetPassword(
 
   const json = await req.json();
   if (!req.ok) {
-    const { error } = ErrorResponseSchema.parse(json);
+    const { error } = ErrorsResponseSchema.parse(json);
     return {
       errors: [error],
       success: "",
